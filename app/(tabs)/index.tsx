@@ -1,13 +1,22 @@
 import { Stack } from "expo-router";
 import {
+  Activity,
   Bell,
+  BookUser,
+  Building2,
   ChevronDown,
   ChevronRight,
+  CircleDollarSign,
+  Cloud,
+  Fuel,
   Gamepad2,
   Gift,
+  Globe,
   Headset,
+  Heart,
   Home,
   Landmark,
+  Mail,
   Menu,
   Percent,
   Phone,
@@ -16,7 +25,10 @@ import {
   Send,
   ShoppingCart,
   Smartphone,
+  Ticket,
+  TrendingUp,
   Trophy,
+  Users,
 } from "lucide-react-native";
 import React, { useState } from "react";
 import {
@@ -54,14 +66,16 @@ export default function HomeScreen() {
               <Text style={styles.cardLabel}>Loan Balance</Text>
               <Text style={styles.cardValue}>Rs. 39.00</Text>
             </View>
-            <div style={styles.buttonRow}>
+            <View style={styles.buttonRow}>
+              {" "}
+              {/* Changed from <div> to <View> */}
               <TouchableOpacity style={styles.outlineBtn}>
                 <Text style={styles.outlineBtnText}>TRANSACTIONS</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.solidBtn}>
                 <Text style={styles.solidBtnText}>RELOAD</Text>
               </TouchableOpacity>
-            </div>
+            </View>
           </View>
         );
 
@@ -213,6 +227,7 @@ export default function HomeScreen() {
             icon={<Landmark color="#ED1C24" size={24} />}
             label="My bank"
             badge="New"
+            badgeColor="#FFD700" // Yellow badge
           />
           <QuickAction
             icon={<Send color="#ED1C24" size={24} />}
@@ -300,6 +315,224 @@ export default function HomeScreen() {
           </View>
           <View style={styles.contentContainer}>{renderTabContent()}</View>
         </View>
+
+        {/* QUICK ACTIONS GRID */}
+        <View style={styles.gridContainer}>
+          {/* ... your existing QuickAction components */}
+        </View>
+
+        {/* --- NEW: RELOAD FOR OTHERS CONTAINER --- */}
+        <View style={styles.reloadOthersContainer}>
+          <Text style={styles.reloadOthersTitle}>
+            Reload or pay bill for others
+          </Text>
+
+          <View style={styles.inputRow}>
+            {/* Input Field Wrapper */}
+            <View style={styles.inputWrapper}>
+              {/* We use a View here to act as the text input background */}
+              <View style={styles.fakeInput}>
+                {/* Contact Icon positioned to the right */}
+                <TouchableOpacity style={styles.contactIcon}>
+                  <BookUser color="#666" size={20} />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* The Red GO Button */}
+            <TouchableOpacity style={styles.goButton}>
+              <Text style={styles.goButtonText}>GO</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* ISOLATED SECTION: GET YOUR NEW CONNECTION */}
+        <Text style={styles.connectionHeader}>Get your new connection</Text>
+        <View style={styles.connectionContainer}>
+          <TouchableOpacity activeOpacity={0.9}>
+            <Image
+              source={require("../../assets/images/banner5.png")}
+              style={styles.connectionBannerImage}
+              resizeMode="cover"
+            />
+          </TouchableOpacity>
+        </View>
+
+        {/* QUICK RELOAD ACCORDION */}
+        <Accordion title="Quick reload">
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.cardScroll}
+          >
+            {[600, 700, 1000].map((amount) => (
+              <View key={amount} style={styles.reloadCard}>
+                <Text style={styles.reloadCurrency}>
+                  Rs. <Text style={styles.reloadAmount}>{amount}</Text>
+                </Text>
+                <TouchableOpacity style={styles.buyButton}>
+                  <Text style={styles.buyButtonText}>BUY</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </ScrollView>
+        </Accordion>
+
+        {/* RECOMMENDED DATA PACKAGES ACCORDION */}
+        <Accordion title="Recommended Data Packages">
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.cardScroll}
+          >
+            <DataPackageCard
+              validity="14 days"
+              title="159 Data Plan"
+              data="1.5 GB"
+              price="159"
+            />
+            <DataPackageCard
+              validity="7 days"
+              title="1 GB"
+              data="1 GB"
+              price="96 + tax"
+            />
+          </ScrollView>
+        </Accordion>
+
+        {/* ALL PACKAGES GRID SECTION */}
+        <View style={styles.pkgSectionWrapper}>
+          <Text style={styles.connectionHeader}>All Packages</Text>
+          <View style={styles.pkgGridContainer}>
+            <TouchableOpacity style={styles.pkgCard}>
+              <Cloud size={28} color="#800080" strokeWidth={1.5} />
+              <Text style={styles.pkgLabel}>Data packages</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.pkgCard}>
+              <View style={styles.pkgComboRow}>
+                <Phone size={18} color="#800080" strokeWidth={1.5} />
+                <Cloud
+                  size={16}
+                  color="#800080"
+                  strokeWidth={1.5}
+                  style={{ marginLeft: -2 }}
+                />
+                <Mail
+                  size={14}
+                  color="#800080"
+                  strokeWidth={1.5}
+                  style={{ marginLeft: -2 }}
+                />
+              </View>
+              <Text style={styles.pkgLabel}>Combo packages</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.pkgCard}>
+              <Phone size={26} color="#800080" strokeWidth={1.5} />
+              <Text style={styles.pkgLabel}>Voice add-on</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* OTHER SERVICES GRID SECTION */}
+        <View style={styles.servicesSectionWrapper}>
+          <Text style={styles.connectionHeader}>Other Services</Text>
+          <View style={styles.servicesGrid}>
+            <ServiceCard
+              icon={<Fuel size={24} color="#800080" />}
+              label="National Fuel Pass"
+            />
+            <ServiceCard
+              icon={<Building2 size={24} color="#800080" />}
+              label="My Bank"
+              isNew
+            />
+
+            <ServiceCard
+              icon={<Gift size={24} color="#800080" />}
+              label="Digi Wasana"
+            />
+            <ServiceCard
+              icon={<Ticket size={24} color="#800080" />}
+              label="Mission X"
+              isNew
+            />
+
+            <ServiceCard
+              icon={<Gamepad2 size={24} color="#800080" />}
+              label="Gaming Arena"
+              isNew
+            />
+            <ServiceCard
+              icon={<Users size={24} color="#800080" />}
+              label="Power Plan Family"
+            />
+
+            <ServiceCard
+              icon={<TrendingUp size={24} color="#800080" />}
+              label="Upgrade to postpaid"
+            />
+            <ServiceCard
+              icon={<CircleDollarSign size={24} color="#800080" />}
+              label="Auto loan"
+            />
+          </View>
+        </View>
+
+        {/* VALUE ADDED SERVICES */}
+        <View style={styles.serviceSection}>
+          <View style={styles.sectionHeaderRow}>
+            <Text style={styles.sectionTitle}>Value added services</Text>
+            <TouchableOpacity>
+              <Text style={styles.myServicesText}>MY SERVICES</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.horizontalScroll}
+          >
+            <ColorCard
+              title="Sport"
+              icon={<Activity size={20} color="#FFF" />}
+              color="#0086CB"
+            />
+            <ColorCard
+              title="News"
+              icon={<Globe size={20} color="#FFF" />}
+              color="#D32F2F"
+            />
+            <ColorCard
+              title="Lifestyle"
+              icon={<Heart size={20} color="#FFF" />}
+              color="#673AB7"
+            />
+          </ScrollView>
+        </View>
+
+        {/* MY PACKAGES ACCORDION */}
+        <Accordion title="My packages">
+          <Text style={styles.emptyText}>You have no active packages.</Text>
+        </Accordion>
+
+        {/* INTERNATIONAL SERVICES */}
+        <View style={styles.serviceSection}>
+          <Text style={styles.sectionTitle}>International services</Text>
+          <View style={styles.twoColumnGrid}>
+            <RectCard title="Roaming" color="#009688" />
+            <RectCard title="IDD" color="#C2185B" />
+          </View>
+        </View>
+
+        {/* LOCATION SERVICES */}
+        <View style={styles.serviceSection}>
+          <Text style={styles.sectionTitle}>Location services</Text>
+          <View style={styles.twoColumnGrid}>
+            <RectCard title="Network coverage" color="#5E35B1" />
+            <RectCard title="Locate us" color="#03A9F4" />
+          </View>
+        </View>
       </ScrollView>
 
       {/* --- NEW BOTTOM NAVIGATION BAR --- */}
@@ -352,6 +585,100 @@ function NavItem({ icon, label, active, dot }: any) {
       <Text style={[styles.navLabel, active && styles.activeNavLabel]}>
         {label}
       </Text>
+    </TouchableOpacity>
+  );
+}
+
+function Accordion({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  const [isOpen, setIsOpen] = React.useState(true);
+
+  return (
+    <View style={styles.accordionContainer}>
+      <TouchableOpacity
+        style={styles.accordionHeader}
+        onPress={() => setIsOpen(!isOpen)}
+        activeOpacity={0.7}
+      >
+        <Text style={styles.accordionTitle}>{title}</Text>
+        {/* Updated Arrow Logic */}
+        <View style={{ transform: [{ rotate: isOpen ? "180deg" : "0deg" }] }}>
+          <ChevronDown
+            size={20}
+            color="#333" // Darker color to ensure visibility when open
+          />
+        </View>
+      </TouchableOpacity>
+      {isOpen && <View style={styles.accordionContent}>{children}</View>}
+    </View>
+  );
+}
+
+// Add this at the bottom of your file
+function DataPackageCard({
+  validity,
+  title,
+  data,
+  price,
+}: {
+  validity: string;
+  title: string;
+  data: string;
+  price: string;
+}) {
+  return (
+    <View style={styles.dataCard}>
+      <Text style={styles.dataValidity}>Valid for {validity}</Text>
+      <Text style={styles.dataTitle}>{title}</Text>
+      <Text style={styles.dataValue}>{data}</Text>
+      <Text style={styles.dataPrice}>Rs. {price}</Text>
+      <TouchableOpacity>
+        <Text style={styles.activateText}>ACTIVATE</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+function ServiceCard({
+  icon,
+  label,
+  isNew,
+}: {
+  icon: any;
+  label: string;
+  isNew?: boolean;
+}) {
+  return (
+    <TouchableOpacity style={styles.serviceCard}>
+      {isNew && (
+        <View style={styles.newBadge}>
+          <Text style={styles.newBadgeText}>New</Text>
+        </View>
+      )}
+      <View style={styles.serviceIconContainer}>{icon}</View>
+      <Text style={styles.serviceLabel}>{label}</Text>
+    </TouchableOpacity>
+  );
+}
+
+function ColorCard({ title, icon, color }: any) {
+  return (
+    <TouchableOpacity style={[styles.colorCard, { backgroundColor: color }]}>
+      <View style={styles.cardIconWrapper}>{icon}</View>
+      <Text style={styles.colorCardTitle}>{title}</Text>
+    </TouchableOpacity>
+  );
+}
+
+function RectCard({ title, color }: any) {
+  return (
+    <TouchableOpacity style={[styles.rectCard, { backgroundColor: color }]}>
+      <Text style={styles.rectCardTitle}>{title}</Text>
     </TouchableOpacity>
   );
 }
@@ -411,13 +738,16 @@ const styles = StyleSheet.create({
   },
   actionLabel: { fontSize: 10, color: "#555", textAlign: "center" },
 
+  // Badge Styles
   newBadge: {
     position: "absolute",
-    top: -4,
-    right: -4,
-    backgroundColor: "#FFD700",
-    paddingHorizontal: 4,
-    borderRadius: 4,
+    top: 0,
+    right: 0,
+    backgroundColor: "#ED1C24",
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderTopRightRadius: 12,
+    borderBottomLeftRadius: 10,
   },
   badgeText: { fontSize: 8, fontWeight: "bold" },
   redDot: {
@@ -488,21 +818,22 @@ const styles = StyleSheet.create({
   buttonRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 10,
+    marginTop: 12,
+    gap: 10, // Adds space between buttons
   },
   solidBtn: {
+    flex: 1, // Makes button take 50% width
     backgroundColor: "#ED1C24",
     paddingVertical: 12,
-    paddingHorizontal: 35,
     borderRadius: 8,
     alignItems: "center",
   },
   solidBtnText: { color: "#FFF", fontWeight: "bold", fontSize: 13 },
   outlineBtn: {
+    flex: 1, // Makes button take 50% width
     borderWidth: 1,
     borderColor: "#E0E0E0",
     paddingVertical: 12,
-    paddingHorizontal: 25,
     borderRadius: 8,
     alignItems: "center",
   },
@@ -527,11 +858,12 @@ const styles = StyleSheet.create({
   toggleSub: { fontSize: 11, color: "#888" },
   emptyContainer: { alignItems: "center", paddingVertical: 20 },
   emptyImage: { width: 60, height: 60, opacity: 0.3, marginBottom: 15 },
+
   emptyText: {
-    fontSize: 14,
-    color: "#555",
-    fontWeight: "600",
-    marginBottom: 15,
+    fontSize: 13,
+    color: "#999",
+    textAlign: "center",
+    paddingVertical: 10,
   },
 
   // Bottom Nav Styles
@@ -557,5 +889,423 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF4D4D",
     borderWidth: 1,
     borderColor: "#FFF",
+  },
+
+  reloadOthersContainer: {
+    backgroundColor: "#FFF",
+    marginHorizontal: 15,
+    padding: 16,
+    borderRadius: 15,
+    // Add shadow/elevation to match the Tab Section
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
+    marginTop: 5,
+    marginBottom: 15,
+  },
+  reloadOthersTitle: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#333",
+    marginBottom: 12,
+  },
+  inputRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  inputWrapper: {
+    flex: 1, // Takes up remaining space
+  },
+  fakeInput: {
+    height: 48,
+    borderWidth: 1,
+    borderColor: "#E0E0E0",
+    borderRadius: 10,
+    backgroundColor: "#FAFAFA",
+    justifyContent: "center",
+    paddingHorizontal: 12,
+  },
+  contactIcon: {
+    alignSelf: "flex-end", // Pushes the icon to the right of the input
+  },
+  goButton: {
+    backgroundColor: "#ED1C24",
+    height: 48,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 12,
+  },
+  goButtonText: {
+    color: "#FFF",
+    fontWeight: "800",
+    fontSize: 14,
+  },
+  // Section Header for Banners
+  sectionHeader: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#000",
+    marginLeft: 15,
+    marginTop: 10,
+  },
+
+  // Reload for Others Card
+  reloadOthersCard: {
+    backgroundColor: "#FFF",
+    marginHorizontal: 15,
+    padding: 18,
+    borderRadius: 18,
+    marginTop: 5,
+    marginBottom: 10,
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  inputContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFF",
+    borderWidth: 1.5,
+    borderColor: "#EAEAEA",
+    borderRadius: 12,
+    height: 50,
+    paddingHorizontal: 12,
+  },
+  textInput: {
+    flex: 1,
+    fontSize: 14,
+    color: "#333",
+  },
+  // Unique styles for the New Connection section to avoid affecting other designs
+  connectionHeader: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#000",
+    marginLeft: 15,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  connectionContainer: {
+    paddingHorizontal: 15,
+    marginBottom: 20,
+    width: width, // Uses the device width imported at the top
+  },
+  connectionBannerImage: {
+    width: "100%",
+    height: 180,
+    borderRadius: 18,
+    // Explicitly defining dimensions here so it doesn't inherit from .bannerImage
+  },
+
+  accordionContainer: {
+    backgroundColor: "#FFF",
+    marginHorizontal: 15,
+    borderRadius: 15,
+    marginBottom: 12,
+    // Ensure overflow doesn't clip the rotation shadow/icon
+    overflow: "visible",
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  accordionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 18,
+    backgroundColor: "#FFF", // Explicit background helps visibility
+    borderRadius: 15,
+  },
+  accordionTitle: { fontSize: 15, fontWeight: "700", color: "#666" },
+  accordionContent: { paddingBottom: 18, paddingHorizontal: 15 },
+  cardScroll: { flexDirection: "row" },
+
+  // Reload Card Styles
+  reloadCard: {
+    backgroundColor: "#F9F9F9",
+    width: 110,
+    padding: 15,
+    borderRadius: 12,
+    marginRight: 12,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#F0F0F0",
+  },
+  reloadCurrency: { fontSize: 12, color: "#444" },
+  reloadAmount: { fontSize: 20, fontWeight: "800", color: "#222" },
+  buyButton: { marginTop: 10 },
+  buyButtonText: { color: "#ED1C24", fontWeight: "800", fontSize: 13 },
+
+  // Data Package Card Styles
+  dataCard: {
+    backgroundColor: "#FFF",
+    width: 140,
+    padding: 15,
+    borderRadius: 12,
+    marginRight: 12,
+    borderWidth: 1,
+    borderColor: "#F0F0F0",
+    alignItems: "center",
+  },
+  dataValidity: { fontSize: 11, color: "#999", marginBottom: 8 },
+  dataTitle: {
+    fontSize: 13,
+    fontWeight: "700",
+    color: "#800080",
+    textAlign: "center",
+  },
+  dataValue: {
+    fontSize: 22,
+    fontWeight: "800",
+    color: "#222",
+    marginVertical: 5,
+  },
+  dataPrice: { fontSize: 12, color: "#666", marginBottom: 10 },
+  activateText: { color: "#ED1C24", fontWeight: "800", fontSize: 13 },
+
+  // Header Style
+  allPackagesHeader: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#000",
+    marginLeft: 15,
+    marginTop: 25,
+    marginBottom: 15,
+  },
+
+  // Grid Container
+  packagesGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingHorizontal: 10,
+    justifyContent: "flex-start",
+  },
+
+  // Individual Card
+  packageCard: {
+    backgroundColor: "#FFF",
+    width: width / 2 - 20, // Calculates half screen width minus margins
+    margin: 8,
+    height: 100,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+  },
+
+  packageCardText: {
+    fontSize: 14,
+    color: "#444",
+    marginTop: 10,
+    fontWeight: "500",
+  },
+
+  // Special layout for the Combo package icons
+  multiIconRow: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    height: 28,
+  },
+  // Clean Package Grid
+  cleanHeader: {
+    fontSize: 18,
+    fontWeight: "800",
+    color: "#000",
+    marginLeft: 20,
+    marginTop: 25,
+    marginBottom: 15,
+  },
+  cleanGridContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingHorizontal: 12,
+    paddingBottom: 30,
+  },
+  cleanPackageCard: {
+    backgroundColor: "#FFF",
+    width: width / 2 - 20,
+    margin: 8,
+    height: 120,
+    borderRadius: 22,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
+  },
+  iconCircle: {
+    width: 45,
+    height: 45,
+    borderRadius: 22.5,
+    backgroundColor: "#FDF0FF",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  cleanPackageText: { fontSize: 14, fontWeight: "600", color: "#444" },
+
+  pkgSectionWrapper: {
+    marginTop: 20,
+    paddingHorizontal: 16,
+    paddingBottom: 30, // Extra space at bottom of scroll
+  },
+  pkgHeaderText: {
+    fontSize: 18,
+    fontWeight: "800",
+    color: "#000",
+    marginBottom: 12,
+  },
+  pkgGridContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
+  pkgCard: {
+    backgroundColor: "#FFF",
+    width: "48.5%", // Perfect 2-column fit
+    height: 110,
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 12,
+    // Professional clean shadow
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  pkgLabel: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#444",
+    marginTop: 10,
+  },
+  pkgComboRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  // Section Layout
+  servicesSectionWrapper: {
+    paddingHorizontal: 16,
+    paddingTop: 10,
+    paddingBottom: 40,
+  },
+  servicesGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
+
+  // Card Design
+  serviceCard: {
+    backgroundColor: "#FFF",
+    width: "48.5%",
+    height: 105,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 12,
+    position: "relative", // Necessary for absolute positioning of the badge
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.04,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  serviceIconContainer: {
+    marginBottom: 8,
+  },
+  serviceLabel: {
+    fontSize: 13,
+    fontWeight: "500",
+    color: "#444",
+    textAlign: "center",
+    paddingHorizontal: 5,
+  },
+
+  newBadgeText: {
+    color: "#FFF",
+    fontSize: 10,
+    fontWeight: "800",
+  },
+  serviceSection: {
+    paddingHorizontal: 16,
+    marginTop: 25,
+  },
+  sectionHeaderRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#000",
+  },
+  myServicesText: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: "#ED1C24",
+  },
+  horizontalScroll: {
+    flexDirection: "row",
+  },
+  twoColumnGrid: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 12,
+  },
+
+  // Color Card (Value Added)
+  colorCard: {
+    width: 140,
+    height: 100,
+    borderRadius: 12,
+    padding: 15,
+    marginRight: 12,
+    justifyContent: "flex-end",
+  },
+  cardIconWrapper: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    opacity: 0.8,
+  },
+  colorCardTitle: {
+    color: "#FFF",
+    fontSize: 16,
+    fontWeight: "800",
+  },
+
+  // Rectangular Card (International/Location)
+  rectCard: {
+    width: "48.5%",
+    height: 90,
+    borderRadius: 12,
+    padding: 15,
+    justifyContent: "flex-end",
+  },
+  rectCardTitle: {
+    color: "#FFF",
+    fontSize: 15,
+    fontWeight: "800",
   },
 });
