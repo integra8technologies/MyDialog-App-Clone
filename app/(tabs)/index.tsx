@@ -480,6 +480,11 @@ export default function HomeScreen() {
           </View>
         </View>
 
+        {/* MY PACKAGES ACCORDION */}
+        <Accordion title="My packages">
+          <Text style={styles.emptyText}>You have no active packages.</Text>
+        </Accordion>
+
         {/* VALUE ADDED SERVICES */}
         <View style={styles.serviceSection}>
           <View style={styles.sectionHeaderRow}>
@@ -510,11 +515,6 @@ export default function HomeScreen() {
             />
           </ScrollView>
         </View>
-
-        {/* MY PACKAGES ACCORDION */}
-        <Accordion title="My packages">
-          <Text style={styles.emptyText}>You have no active packages.</Text>
-        </Accordion>
 
         {/* INTERNATIONAL SERVICES */}
         <View style={styles.serviceSection}>
